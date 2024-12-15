@@ -1,0 +1,16 @@
+# NOTEPAD-USING-PYTHON
+A simple Notepad application in Python can be created using the Tkinter library, which provides tools for creating graphical user interfaces (GUIs). The notepad application typically allows users to create, edit, save, and open text files.
+
+Key Features:
+1.Text Editing:
+2.Open and Save Files:
+3.BasIC FONT Formatting:
+4.DATE AND TIME:
+5.Simple Interface: 
+The application has a user-friendly window with buttons for common tasks.
+Here’s a brief description of how such a notepad can be written:
+
+Tkinter is used to create the main window and the text widget.
+The text widget allows users to input and edit text.
+Menu bar provides options like File > New, Open, Save, and Exit,UNDO,REDO,COPY,PASTE,FONT,DATE&TIME .
+Functions are defined to handle actions like opening a file, saving the text to a file, and creating a new file.
