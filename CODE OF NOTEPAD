@@ -1,0 +1,128 @@
+import tkinter as tk  
+from tkinter import *
+from tkinter import filedialog
+from tkinter import font
+import datetime
+
+
+root = tk.Tk()
+ 
+root.title("Notepad")
+root.geometry("800x600")
+
+
+ 
+Textarea=tk.Text(root,wrap=tk.WORD, undo=True)
+Textarea.pack(expand="true",fill="both")
+
+#FILE FUNCTION
+def open_file():
+
+    file_path=filedialog.askopenfile(defaultextension=".txt",filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
+    if file_path:
+        with open(file_path,"r") as file:
+         Textarea.delete(1.0,tk.END)
+         Textarea.insert(tk.END,file.read())
+
+def save_file():
+    file_path=filedialog.asksaveasfile(defaultextension="txt",filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
+    if file_path:
+        with open(file_path,"w") as file:
+         file.write(Textarea.get(1.0,tk.END))
+
+def new_file():
+    Textarea.delete(1.0,tk.END)             
+
+
+#EDIT FUNCTION
+
+def cut_text():
+   Textarea.event_generate("<<cut>>")     
+
+def copy_text():
+   Textarea.event_generate("<<copy>>")    
+
+def paste_text():
+   Textarea.event_generate("<<paste>>")       
+
+def undo_text():
+   Textarea.edit_undo()    
+
+def redo_text():
+   Textarea.edit_redo()    
+
+
+#FONT FUNCTION
+def bold():
+      current_font = font.Font(family='Helvetica', size=14, weight='bold')
+      Textarea.config(font=current_font)
+
+def courier():
+      courier_font = font.Font(family='courier', size=14, weight='normal')
+      Textarea.config(font=courier_font)
+
+
+def Arial():
+      Arial_font = font.Font(family='Arial', size=14, weight='normal')
+      Textarea.config(font=Arial_font)
+
+def Verdana():
+      Verdana_font = font.Font(family='Verdana', size=14, weight='normal')
+      Textarea.config(font=Verdana_font)
+
+def Calibri():
+      Calibri_font = font.Font(family='Calibri', size=14, weight='normal')
+      Textarea.config(font=Calibri_font)
+
+
+#DATE AND TIME FUNCTION
+def date_time_():
+     now = datetime.datetime.now()
+     formatted_time = now.strftime("%Y-%m-%d %H:%M:%S")
+     Textarea.insert(tk.END, f"Current date and time: {formatted_time}\n")
+    
+
+menu_bar = tk.Menu(root)
+root.config(menu=menu_bar)
+
+
+#file menu
+file_menu = tk.Menu(menu_bar, tearoff=0)
+menu_bar.add_cascade(label="File", menu=file_menu)
+file_menu.add_command(label="New", command=new_file)
+file_menu.add_command(label="Open", command=open_file)
+file_menu.add_command(label="Save", command=save_file)
+file_menu.add_separator()
+file_menu.add_command(label="Exit", command=root.quit)
+
+
+#edit menu
+Edit_menu = tk.Menu(menu_bar, tearoff=0)
+menu_bar.add_cascade(label="Edit", menu=Edit_menu)
+Edit_menu.add_command(label="CUT", command=cut_text)
+Edit_menu.add_command(label="COPY", command=copy_text)
+Edit_menu.add_command(label="PASTE", command=paste_text)
+file_menu.add_separator()
+Edit_menu.add_command(label="UNDO", command=undo_text)
+Edit_menu.add_command(label="REDO", command=redo_text)
+
+
+#font menu
+font_menu = tk.Menu(menu_bar, tearoff=0)
+menu_bar.add_cascade(label="Font", menu=font_menu)
+font_menu.add_command(label="Bold", command=bold)
+font_menu.add_command(label="courier", command=courier)
+font_menu.add_command(label='Arial',command=Arial)
+font_menu.add_command(label="'Verdana'", command=Verdana)
+font_menu.add_command(label="Calibri", command=Calibri)
+
+
+#DATE MENU
+date_time_menu = tk.Menu(menu_bar, tearoff=0)
+menu_bar.add_cascade(label="Date/Time", menu=date_time_menu)
+date_time_menu.add_command(label="now", command=date_time_)
+
+
+
+root.mainloop()
+
